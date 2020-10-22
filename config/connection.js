@@ -20,15 +20,16 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId)
 });
 
+module.exports = connection;
 //unclear how to set up routes
 app.get("/", function (req, res) {
 
     // If the main route is hit, then we initiate a SQL query to grab all records.
     // All of the resulting records are stored in the variable "result."
-    connection.query("SELECT * FROM schools", function (err, result) {
+    connection.query("SELECT * FROM burgers", function (err, result) {
         if (err) throw err;
         // We then begin building out HTML elements for the page.
-        var html = "<h1> Magical Schools </h1>";
+        var html = "<h1> Burgers! </h1>";
 
         // Here we begin an unordered list.
         html += "<ul>";
@@ -36,7 +37,7 @@ app.get("/", function (req, res) {
         // We then use the retrieved records from the database to populate our HTML file.
         for (var i = 0; i < result.length; i++) {
             html += "<li><p> ID: " + result[i].id + "</p>";
-            html += "<p>School: " + result[i].name + " </p></li>";
+            html += "<p>Burger type: " + result[i].name + " </p></li>";
         }
 
         // We close our unordered list.
